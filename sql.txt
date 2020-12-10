@@ -1,0 +1,26 @@
+update coin_item_cart set ct_buy_price='1019.7',  ct_sell_price='1223.6'  where cn_item='d' and ct_buy_price='815.7';
+
+update coin_item_cart set ct_buy_price='572',  ct_sell_price='674.9‬'  where cn_item='c' and ct_buy_price='457.7';
+
+update coin_item_cart set ct_buy_price='178',  ct_sell_price='206.4‬'  where cn_item='b' and ct_buy_price='142.4';
+
+update coin_item_cart set ct_buy_price='94.7',  ct_sell_price='107.9'  where cn_item='a' and ct_buy_price='75.7';
+
+
+select * from  coin_item_trade  where cn_item='d' and tr_price_org='815.7';
+
+update coin_item_trade set ct_buy_price='572',  ct_sell_price='674.9‬'  where cn_item='c' and ct_buy_price='457.7';
+
+update coin_item_trade set ct_buy_price='178',  ct_sell_price='206.4‬'  where cn_item='b' and ct_buy_price='142.4';
+
+update coin_item_trade set ct_buy_price='94.7',  ct_sell_price='107.9'  where cn_item='a' and ct_buy_price='75.7';
+
+
+
+update coin_item_trade set ct_buy_price='1019.7',  ct_sell_price='1223.6'  where cn_item='d' and tr_price_org='815.7';
+
+update coin_item_trade set ct_buy_price='572',  ct_sell_price='674.9‬'  where cn_item='c' and ct_buy_price='457.7';
+
+update coin_item_trade set ct_buy_price='178',  ct_sell_price='206.4‬'  where cn_item='b' and ct_buy_price='142.4';
+
+update coin_item_trade set ct_buy_price='94.7',  ct_sell_price='107.9'  where cn_item='a' and ct_buy_price='75.7';

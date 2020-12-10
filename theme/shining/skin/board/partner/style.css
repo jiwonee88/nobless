@@ -1,0 +1,5 @@
+@charset "utf-8";
+
+@import url('../basic/style.css');
+
+.open-data-body,.open-data-body:hover{background:#FBFBFC;background:#ddddddd;}
