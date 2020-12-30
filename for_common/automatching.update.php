@@ -4,13 +4,19 @@ include_once('./_common.php');
 //서비스 블럭
 service_block();
 if ($_POST['w']=='new') {
-    $sql = "update {$g5['cn_sub_account']} set ac_auto_{$_POST[type]} = '{$_POST['cnt']}' where mb_id = '{$member[mb_id]}' ORDER BY ac_no asc LIMIT 1";
-    $result= sql_query($sql);
-    $log_sql = "insert into coin_item_matching_log set 
-			ac_auto_{$_POST[type]} = '{$_POST['cnt']}',
-			mb_id = '{$member['mb_id']}'
-			log_wdate = now()";
-    sql_query($log_sql);
+	$sql = "update {$g5['cn_sub_account']} set ac_auto_{$_POST[type]} = '0' where mb_id = '{$member[mb_id]}'";
+	$result= sql_query($sql);
+	for($i=1;$i<=$_POST['cnt'];$i++){
+		$ac_id = $member['mb_id'].".".str_pad($i,"2","0",STR_PAD_LEFT);
+		$sql = "update {$g5['cn_sub_account']} set ac_auto_{$_POST[type]} = '1' where ac_id = '{$ac_id}' ORDER BY ac_no asc LIMIT 1";
+		$result= sql_query($sql);
+		$log_sql = "insert into coin_item_matching_log set 
+				ac_auto_{$_POST[type]} = '{$_POST['cnt']}',
+				mb_id = '{$member['mb_id']}'
+				log_wdate = now()";
+	}
+    //sql_query($log_sql);
+
 } else {
     if ($w == 'm') {
         $sql = " update {$g5['member_table']}

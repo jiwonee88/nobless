@@ -10,10 +10,9 @@ include_once('../_head.php');
 $mrpoint=get_mempoint($member[mb_id], $member[mb_id]);
 $isum=get_itemsum($member[mb_id]);
 
-$acc_sql = "select * from  {$g5['cn_sub_account']} where mb_id='$member[mb_id]' order by ac_id asc limit 1";
+$acc_sql = "select *,sum(case when ac_id like '%.%' then 1 end) max, sum(ac_auto_a) cnt_a,sum(ac_auto_b) cnt_b,sum(ac_auto_c) cnt_c from  {$g5['cn_sub_account']} where mb_id='$member[mb_id]' order by ac_id asc limit 1";
 $acc_row = sql_fetch($acc_sql);
 ?>
-
 <div id="Contents" class="sub_con">
     
     <div id="sec1" class="sec_wrap">
@@ -21,7 +20,7 @@ $acc_row = sql_fetch($acc_sql);
     </div>
     
     <ul id="sec2" class="sec_wrap sec2_wrap">
-        <li class=""><img src="<?=G5_THEME_URL?>/images/sec2_img3.png" /> 보유골드  <span class="c_pink">28,123</span></li>
+        <li class=""><img src="<?=G5_THEME_URL?>/images/sec2_img3.png" /> 보유골드  <span class="c_pink"><?=number_format2($rpoint['i']['_enable'])?></span></li>
     </ul>
 
     <div class="mt2em mb1-5em"><img src="<?=G5_THEME_URL?>/images/sec3_line.png" width="100%" /></div>
@@ -46,26 +45,17 @@ $acc_row = sql_fetch($acc_sql);
 					<li class="org">
 						<div class="t">구매신청</div>
 						<div class="c">
-							<input type="text" name="" class="ipt_num" id="cnt_<?=$k?>" value="<?=$acc_row["ac_auto_{$k}"]?>" />
+							<input type="text" name="" class="ipt_num" id="cnt_<?=$k?>" value="<?=$acc_row["cnt_{$k}"]?>" />
 							<div class="ipt_arw">
-								<div class="up"><button type="button" onclick="fn_controller('cnt','<?=$k?>','up')"><img src="<?=G5_THEME_URL?>/images/icon_up.png" /></button></div>
-								<div class="dw"><button type="button" onclick="fn_controller('cnt','<?=$k?>','down')"><img src="<?=G5_THEME_URL?>/images/icon_down.png" /></button></div>
+								<div class="up"><button type="button" onclick="fn_controller('<?=$k?>','up','<?=$v[price]?>')"><img src="<?=G5_THEME_URL?>/images/icon_up.png" /></button></div>
+								<div class="dw"><button type="button" onclick="fn_controller('<?=$k?>','down','<?=$v[price]?>')"><img src="<?=G5_THEME_URL?>/images/icon_down.png" /></button></div>
 							</div>
 							개
 						</div>
-						<button type="reset" name="" class="ipt_reset" onclick="fn_controller('cnt','<?=$k?>','del')"><img src="<?=G5_THEME_URL?>/images/btn_delete.png" width="100%"/></button>
-					</li>
-					<li class="sky">
 						<div class="t">소요골드</div>
 						<div class="c">
-							<input type="text" name="" class="ipt_num" id="price_<?=$k?>" value="1" />
-							<div class="ipt_arw">
-								<div class="up"><button type="button" onclick="fn_controller('price','<?=$k?>','up')"><img src="<?=G5_THEME_URL?>/images/icon_up.png" /></button></div>
-								<div class="dw"><button type="button" onclick="fn_controller('price','<?=$k?>','down')"><img src="<?=G5_THEME_URL?>/images/icon_down.png" /></button></div>
-							</div>
-							개
+							<input type="text" name="" style="width:100%" readonly=true class="ipt_num" id="price_<?=$k?>" value="<?=$v[price]*$acc_row["cnt_{$k}"]?>" />
 						</div>
-						<button type="reset" name="" class="ipt_reset" onclick="fn_controller('price','<?=$k?>','del')"><img src="<?=G5_THEME_URL?>/images/btn_delete.png" width="100%"/></button>
 					</li>
 					<button type="button" onclick="schedule_buy('<?=$k?>');" name="" class="ipt_submit"><img src="<?=G5_THEME_URL?>/images/btn_save.png" /></button>
 				</ul>
@@ -75,10 +65,15 @@ $acc_row = sql_fetch($acc_sql);
     </ul>
 </div>
 <script>
-function fn_controller($mode,$obj,$fn){
-	var $obj = $("#"+$mode+"_"+$obj);
-	var $obj_val = $obj.val();
+function fn_controller($obj,$fn,$price){
+	var $cnt_obj = $("#cnt_"+$obj);
+	var $price_label = $("#price_"+$obj);
+	var $obj_val = $cnt_obj.val();
+	var $max = <?=$acc_row['max']>0?$acc_row['max']:0?>;
 	if($fn=='up'){
+		if($obj_val>=10){
+		 return false;	
+		}
 		$obj_val++;
 	}else
 	if($fn=='down'){
@@ -89,7 +84,8 @@ function fn_controller($mode,$obj,$fn){
 	if($fn=='del'){
 		$obj_val = 0;
 	}
-	$obj.val($obj_val);
+	$cnt_obj.val($obj_val);
+	$price_label.val($obj_val*$price);
 
 }
 

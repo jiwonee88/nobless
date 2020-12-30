@@ -20,6 +20,14 @@ if ((date("H") >= 19 ||  date("H") <= 10)) {
     $enable_siren=false;
 }
 
+
+$sql =  "select count(*) as cnt from  {$g5['cn_sub_account']} where mb_id='$member[mb_id]'";
+$cnt_row = sql_fetch($sql);
+
+
+$sql =  "select count(*) as cnt from  {$g5['cn_sub_account']} where mb_id='$member[mb_id]' and (ac_auto_a = 1 or ac_auto_b = 1 or ac_auto_c = 1)";
+$cnt_checked_row = sql_fetch($sql);
+
 ?>
 
 <?php?>
@@ -37,16 +45,15 @@ if ((date("H") >= 19 ||  date("H") <= 10)) {
     </div>
     
     <ul id="sec2" class="sec_wrap sec2_wrap">
-        <li>10/25</li>
-        <li class="c_pink">$2,580</li>
+        <li><?=$cnt_checked_row['cnt']?>/<?=$cnt_row['cnt']?></li>
+        <li class="c_pink">$<?=number_format2($rpoint['b']['_enable'])?></li>
     </ul>
 
 
     <ul id="sec5" class="sec_wrap sec5_wrap">
-        <li><a href="#" style="background-image:url(<?=G5_THEME_URL?>/images/prize_bg2.png);">송금대기 <?=$buyer_stats[cnt_stats_1]>99?'+99':($buyer_stats[cnt_stats_1]?$buyer_stats[cnt_stats_1]:0)?>건</a></li>    
-        <li><a href="#" style="background-image:url(<?=G5_THEME_URL?>/images/prize_bg4.png);">송금완료 <?=$buyer_stats[cnt_stats_2]>99?'+99':($buyer_stats[cnt_stats_2]?$buyer_stats[cnt_stats_2]:0)?>건</a></li>
-        <li><a href="#" style="background-image:url(<?=G5_THEME_URL?>/images/prize_bg1.png);">완료대기 <?=$buyer_stats[all_claim]>99?'+99':($buyer_stats[all_claim]?$buyer_stats[all_claim]:0)?>건</a></li>
-        <li><a href="#" style="background-image:url(<?=G5_THEME_URL?>/images/prize_bg3.png);">거래완료 <?=$buyer_stats[cnt_stats_4]>99?'+99':($buyer_stats[cnt_stats_4]?$buyer_stats[cnt_stats_4]:0)?>건</a></li>
+        <li class="state1"><a href="#">미처리 <?=$buyer_stats[cnt_stats_1]>99?'+99':($buyer_stats[cnt_stats_1]?$buyer_stats[cnt_stats_1]:0)?>건</a></li>    
+        <li class="state2"><a href="#">완료대기 <?=$buyer_stats[cnt_stats_2]>99?'+99':($buyer_stats[cnt_stats_2]?$buyer_stats[cnt_stats_2]:0)?>건</a></li>
+        <li class="state3"><a href="#">거래완료 <?=$buyer_stats[all_claim]>99?'+99':($buyer_stats[all_claim]?$buyer_stats[all_claim]:0)?>건</a></li>
     </ul>
 
     <div class="mt2em mb1-5em"><img src="<?=G5_THEME_URL?>/images/sec3_line.png" width="100%" /></div>
@@ -58,7 +65,7 @@ if ($cset[service_block] !='1') {
         if (preg_match("/^2/", $stats_stx)) {
             $sql_common = " from {$g5['cn_item_trade']} a 
 			left outer join  {$g5['member_table']} as b on(a.mb_id=b.mb_id) ";
-            $sql_search = " where (1)  ";//and a.fmb_id='{$member[mb_id]}'
+            $sql_search = " where (1) and a.fmb_id='{$member[mb_id]}'";//and a.fmb_id='{$member[mb_id]}'
             if (!$sst) {
                 $sst  = "a.tr_code ";
                 $sod = "desc";
@@ -88,7 +95,7 @@ if ($cset[service_block] !='1') {
             } // 페이지가 없으면 첫 페이지 (1 페이지)
             $from_record = ($page - 1) * $rows; // 시작 열을 구함
             
-            $sql = " select a.*,b.mb_id bmb_id,b.mb_name bmb_name,b.mb_hp bmb_hp,b.mb_bank,b.mb_bank_num, b.mb_bank_user  {$sql_common} {$sql_search} {$sql_order} limit {$from_record}, {$rows} ";
+            $sql = " select a.*,b.mb_id bmb_id,b.mb_name bmb_name,b.mb_hp bmb_hp,b.mb_bank,b.mb_bank_num, b.mb_bank_user,b.mb_message  {$sql_common} {$sql_search} {$sql_order} limit {$from_record}, {$rows} ";
             $result = sql_query($sql, 1);
             $list_num = $total_count - ($page - 1) * $rows;
             for ($i=0; $row=sql_fetch_array($result); $i++) {
@@ -140,7 +147,7 @@ if ($cset[service_block] !='1') {
 							<?php } ?>
 							
 						</div>
-						<div class="s"><b>* dhghst21 </b> <span>오후 1시전까지 확인해드립니다. 문제 있을 경우 문자 요망</span></div>
+						<div class="s"><b>* <?=$row['mb_id']?> </b> <span><?=$row['mb_message']?></span></div>
 					</div>
 					<!--
 					<form name='form_<?=$row[tr_code]?>' id='form_<?=$row[tr_code]?>'  >
@@ -206,7 +213,7 @@ if ($cset[service_block] !='1') {
         if (preg_match("/^1/", $stats_stx)) {
             $sql_common = " from {$g5['cn_item_trade']} a 
 	left outer join  {$g5['member_table']} as b on(a.fmb_id=b.mb_id) ";
-            $sql_search = " where (1)  ";//and a.mb_id='{$member[mb_id]}'
+            $sql_search = " where (1)  and a.mb_id='{$member[mb_id]}'";//and a.mb_id='{$member[mb_id]}'
             if (!$sst) {
                 $sst  = "a.tr_code ";
                 $sod = "desc";
@@ -237,7 +244,7 @@ if ($cset[service_block] !='1') {
 
     
 
-    $sql = " select a.*,b.mb_id bmb_id,b.mb_hp bmb_hp,b.mb_name bmb_name,b.mb_bank,b.mb_bank_num, b.mb_bank_user, b.mb_trade_paytype  {$sql_common} {$sql_search} {$sql_order} limit {$from_record}, {$rows} ";
+    $sql = " select a.*,b.mb_id bmb_id,b.mb_hp bmb_hp,b.mb_name bmb_name,b.mb_bank,b.mb_bank_num, b.mb_bank_user, b.mb_trade_paytype,b.mb_message {$sql_common} {$sql_search} {$sql_order} limit {$from_record}, {$rows} ";
             $result = sql_query($sql, 1);
 
             $list_num = $total_count - ($page - 1) * $rows;
@@ -307,7 +314,7 @@ if ($cset[service_block] !='1') {
 						<?php } ?>
 						
 					</div>
-					<div class="s"><b>* dhghst21 </b> <span>오후 1시전까지 확인해드립니다. 문제 있을 경우 문자 요망</span></div>
+					<div class="s"><b>* <?=$row['mb_id']?> </b> <span><?=$row['mb_message']?></span></div>
 				</div>
 				<!--
 				<form name='form_<?=$row[tr_code]?>' id='form_<?=$row[tr_code]?>'  >

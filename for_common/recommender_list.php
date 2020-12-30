@@ -33,7 +33,7 @@ function prnt_rows($result, $list_num)
         
         $str.='
 		<li id="mb_box_'.$mb['mb_id'].'" class="mb_box" data-id="'.$mb['mb_id'].'">
-		<div><i class="fa fa-user-circle fa-2x btn-reload-tree" data-id="'.$mb['mb_id'].'" ></i></div>
+		<div class="arrow"></div>
         <p class="btn-user-info" data-id="'.$mb['mb_id'].'" >'.$mb['mb_id'].'</p>
 		';
         
@@ -117,7 +117,7 @@ if ($mbs[mb_id]) {
 
       
 		
-<div style="height:92vh;text-align:center;">
+<div style="height:92vh;text-align:center;" id="Contents">
 	<img src="<?php echo G5_THEME_URL ?>/images/head_partner.png" style="width:100%" width=100% alt="">
 
 
@@ -142,7 +142,7 @@ if ($mbs[mb_id]) {
 
 						<ul>
 						<li id="mb_box_<?=$mbs['mb_id']?>" class="mb_box" data-id="<?=$mbs['mb_id']?>">  
-						<div><i class="fas fa-user-circle fa-2x btn-reload-tree" data-id='<?=$mbs['mb_id']?>' ></i></div>
+						<div class="arrow"></div>
 						<p id='starter' class='btn-user-info' data-id='<?=$mbs['mb_id']?>' ><?=$mbs['mb_id']?></p>
 
 						<?php if (sql_num_rows($result) > 0) { ?>        
@@ -191,6 +191,7 @@ $(document).ready(function(){
     $(".mb_box").on("click",function(){
         var div_id=$(this).attr("data-id");
         $("#mb_box_"+div_id).find("ul").toggle();
+        $("#mb_box_"+div_id).find(".arrow").toggleClass("arrow_bottom");
         console.log("#mb_box_"+div_id);
         event.stopPropagation();
     });
@@ -203,4 +204,7 @@ include_once('../_tail.php');
 .mb_box {margin-left:10px}
 .mb_box > div {display:inline-block}
 .mb_box > p {display:inline-block;line-height:200%}
+.arrow:before {content:"▶"}
+.arrow_bottom:before {content:"▼"}
+.tree ul {cursor:pointer}
 </style>

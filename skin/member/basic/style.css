@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 /* ### 기본 스타일 커스터마이징 시작 ### */
-
+.sound_only {display:none}
 /* 버튼 */
 .mbskin a.btn01 {}
 .mbskin a.btn01:focus, .mbskin .btn01:hover {}
@@ -159,7 +159,7 @@ box-shadow: 0 1px 3px #eee;
 /* 로그인 */
 #mb_login {}
 #login_fs{padding:0 50px}
-#mb_login #login_fs .frm_input{margin:0 0 10px}
+#mb_login #login_fs .frm_input{}
 #mb_login #login_fs .btn_submit {margin:0 0 20px}
 #mb_login #login_info{background:#f6f6f6;padding:25px 10px;border-top:1px solid #e8e8e8;margin:40px 0 0 }
 #mb_login #login_info:after {display:block;visibility:hidden;clear:both;content:""}

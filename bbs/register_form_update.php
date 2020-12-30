@@ -87,7 +87,7 @@ $mb_addr_jibeon = preg_match("/^(N|R)$/", $mb_addr_jibeon) ? $mb_addr_jibeon : '
 
 if ($w == '' || $w == 'u') {
 	
-
+	/*
 	//휴대전화 인증
 	if($w=='' || ($w=='u' && $member[mb_hp]!=$mb_hp )){
 		$nation_hp="+".$mb_nation.only_numeric($mb_hp);
@@ -96,6 +96,7 @@ if ($w == '' || $w == 'u') {
 		
 		$sql_certify = " , mb_certify  = now() ";
 	}
+	*/
 	
     if ($msg = empty_mb_id($mb_id))         alert_json(false,$msg, "", true, true); // alert_json(false,$msg, $url, $error, $post);
     if ($msg = valid_mb_id($mb_id))         alert($msg, "", true, true);
@@ -233,13 +234,15 @@ if ($w == '' || $mb_deposite_pass!='' ) {
 if ($w == '') {
 
 // 중복체크
+/*	//인증번호 삽입시 해당내용 복원
 	$sql = " select mb_id from {$g5['member_table']} where mb_hp='{$mb_hp}' ";
 	$row = sql_fetch($sql);
 	if ($row['mb_id']) {
-		alert("입력하신 본인확인 정보로 가입된 내역이 존재합니다.\\n회원아이디 : ".$row['mb_id']);
+		//alert("입력하신 본인확인 정보로 가입된 내역이 존재합니다.\\n회원아이디 : ".$row['mb_id']);
+		alert_json(false,"입력하신 본인확인 정보로 가입된 내역이 존재합니다. 회원아이디 : ".$row['mb_id']);
 		exit;
 	}
-
+	*/
     $sql = " insert into {$g5['member_table']}
                 set mb_id = '{$mb_id}',
                      mb_password = '".get_encrypt_string($mb_password)."',

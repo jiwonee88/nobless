@@ -11,47 +11,55 @@ $isum=get_itemsum($member[mb_id]);
 add_javascript('<script src="'.G5_THEME_URL.'/extend/clipboard.min.js"></script>', 1);
 
 ?>
-<div style="height:92vh;text-align:center;">
+<div style="height:92vh;text-align:center;" id="Contents">
     <img src="<?php echo G5_THEME_URL ?>/images/head_account.png" style="width:100%" width=100% alt="">
-    <div class="popup i05">
-
-        <form name='form5' onsubmit='form5_submit(this);' >
-        <input type='hidden' name='w' value='u5' >	
+	<div class="notice_box" style="">
         <b>은행정보를 정확하게 입력하지 않으면</br>거래가 지연되는 등의 불이익을 당하실 수도 있습니다.</b>
-        
-        <ul>
-            <li>
-                    <h5 class='mt-3 mb-1'>은행정보</h5>
-                    <input  type="text" name='mb_bank' value="<?=$member[mb_bank]?>" class='common-input w-100 mt-1' placeholder='은행명'>
-                    
-                    <!--select name='mb_bank' class='common-select w-100'>
-                    <?php
-                    //foreach($g5[bank_arr] as $v) echo '<option value="'.$v.'" '.($member[mb_bank]==$v?'selected':'').'>'.$v.'</option>';
-                    ?>
-                    </select-->
-            
-                <h5 class='mt-3 mb-1'>계좌번호</h5>
-                <input  type="text" name='mb_bank_num' value="<?=$member[mb_bank_num]?>" class='common-input w-100 mt-1' placeholder='계좌번호'>
-                
-                <h5 class='mt-3 mb-1'>예금주</h5>
-                <input  type="text" name='mb_bank_user' value="<?=$member[mb_bank_user]?>" class='common-input w-100 mt-1' placeholder='예금주'>
-                
-            </li>
-            
-        </ul>
+	</div>
+	<img src="<?php echo G5_THEME_URL ?>/images/img_line.png" width="100%" />
+	<form name='form5' onsubmit='form5_submit(this);' >
+        <input type='hidden' name='w' value='u5' >	
+		<div class="borderbox_bg">
+			<div class="borderbox_wrap" >
+				<div class="borderbox_content borderbox_content_white p-30 p-l-10 p-r-10">
+					<p class="pb1em">
+						<span class="width-20p display-inblock">은행명</span>
+						<input type="text" name='mb_bank' value="<?=$member[mb_bank]?>" class='input_readonly width-70p' placeholder='은행명'>
+					</p>
+					<p class="pb1em">
+						<span class="width-20p display-inblock">예금주</span>
+						<input type="text" name='mb_bank_user' value="<?=$member[mb_bank_user]?>" class='input_readonly width-70p' placeholder='은행명'>
+					</p>
+					<p class="pb1em">
+						<span class="width-20p display-inblock">계좌번호</span>
+						<input type="text" type="text" name='mb_bank_num' value="<?=$member[mb_bank_num]?>" class='input_readonly width-70p' placeholder='계좌번호'>
+					</p>
+					<p class="right">
+						<button class="btn_nob bg_blue" stype='submit' >저장</button>
+					</p>
+				</div>
+			</div>
+		</div>
+	</form>
 
-        <div class="btns">
-            <ul>
-                <li class='w-50'>
-                    <button stype='submit' >저장</button>
-                </li>
-            </ul>
-        </div>
-        </form>
-    </div>
-
+	<form name='form7' onsubmit='form7_submit(this);' >
+		<input type='hidden' name='w' value='u7' >	
+		<div class="borderbox_bg m-t-20">
+			<div class="borderbox_wrap" >
+				<div class="borderbox_content borderbox_content_white p-30 p-l-10 p-r-10">
+					<p class="pb1em center">
+						<button class="btn_nob bg_green" type='button' >USDT</button>
+						<button class="btn_nob bg_blue" stype='submit' >저장</button>
+					</p>
+					<p>
+						<input type="text" name='mb_wallet_addr_u' value="<?=$member[mb_wallet_addr_u]?>" class='input_readonly' placeholder='USDT지갑주소'>
+					</p>
+				</div>
+			</div>
+		</div>
+	</form>
             
-    <div class="popup i07">
+   <!--  <div class="popup i07">
         <form name='form7' onsubmit='form7_submit(this);' >
         <input type='hidden' name='w' value='u7' >	
         <b>정확한 ERC20 지갑 주소를 입력하지 않으시면 입금액을 분실하게 됩니다.</br>ERC20 형식 지갑주소 오입력으로 발생한 모든 피해는 본인의 책임입니다.</b>
@@ -63,7 +71,7 @@ add_javascript('<script src="'.G5_THEME_URL.'/extend/clipboard.min.js"></script>
             </li>
             
         </ul>
-
+    
         <div class="btns">
             <ul>
                 <li class='w-50'>
@@ -72,9 +80,19 @@ add_javascript('<script src="'.G5_THEME_URL.'/extend/clipboard.min.js"></script>
             </ul>
         </div>
         </form>
-    </div>
+    </div> -->
 </div>
-
+<style>
+.common-input {height:35px;border:none;border-bottom:1px #ccc solid}
+.btn {
+	margin-top:50px;
+	padding: 10px;
+    background: #f4f4f4;
+    box-shadow: 2px 2px 2px 2px #ddd;
+    color: #000000;
+    border-color: #ddd;
+	}
+</style>
 <?php
 include_once('../_tail.php');
 ?>

@@ -49,13 +49,13 @@ $g5['cn_point_name'] ='수당';
 $g5['cn_point_unit'] ='개';
 
 //수당 달러 환산
-$g5['cn_point_usd'] =0.88;
+$g5['cn_point_usd'] =0.92;
 
 //입금 마감 지 시간
 $g5['cn_intime_hour'] =2;
 
 //원화시세
-$g5['cn_won_usd'] =1200;
+$g5['cn_won_usd'] =1100;
 
 
 //회원레벨명 변경
@@ -100,7 +100,7 @@ $g5['cn_wallet']=array(
 $g5['cn_cointype']=array(
 "b"=>"꿀단지",
 "e"=>"매너포인트",
-"i"=>"송이",
+"i"=>"골드",
 "u"=>"USDT",
 "s"=>"쇼핑포인트",
 );
@@ -109,7 +109,7 @@ $g5['cn_cointype']=array(
 $g5['cn_cointype_sym']=array(
 "b"=>"꿀단지",
 "e"=>"매너포인트",
-"i"=>"송이",
+"i"=>"골드",
 "u"=>"TetherUS",
 "s"=>"쇼핑포인트",
 );
@@ -165,10 +165,10 @@ $g5['cn_pkind']=array(
 "mtransin"=>"Manner point in", //매너포인트 입급
 "mtransout"=>"Manner point trans out",//매너 포인트 변환 출금",	//음수
 
-"burnin"=>"Convert NAVI to point", //나비 소각",
+"burnin"=>"Convert Nobless to point", //노블레스 소각",
 
-"change_out"=>"Convert Point Out", //나비 소각",
-"change_in"=>"Convert Point In", //나비 소각",
+"change_out"=>"Convert Point Out", //노블레스 소각",
+"change_in"=>"Convert Point In", //노블레스 소각",
 
 "act_bonus"=>"Sub-account Activation Point", //서브계정 활성화 포인트",
 );
@@ -246,7 +246,7 @@ $g5['cn_paytype']=array(
 );
 
 // 상품구분 (e 코드 상품은 분할 판매 상품)
-$g5['cn_item_name']='나비';
+$g5['cn_item_name']='노블레스';
 
 $g5['cn_item']=array();
 
@@ -290,22 +290,22 @@ $g5['cn_item_org']=$g5['cn_item'];
 //골드 상품구분
 $g5['cn_golditem']=array();
 $g5['cn_golditem']['1000']=array(
-'name_kr'=>'1000개 팩',
+'name_kr'=>'1000 gold',
 'amt'=>1000,
 'price'=>100
 );
 $g5['cn_golditem']['2000']=array(
-'name_kr'=>'2000개 팩',
+'name_kr'=>'2000 gold',
 'amt'=>2000,
 'price'=>200
 );
 $g5['cn_golditem']['5000']=array(
-'name_kr'=>'5000개 팩',
+'name_kr'=>'5000 gold',
 'amt'=>5000,
 'price'=>500
 );
 $g5['cn_golditem']['10000']=array(
-'name_kr'=>'10000개 팩',
+'name_kr'=>'10000 gold',
 'amt'=>10000,
 'price'=>1000
 );

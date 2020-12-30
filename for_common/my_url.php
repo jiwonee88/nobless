@@ -16,16 +16,28 @@ if (!file_exists($PNG_TEMP_DIR)) {
 
 
 $filename = $PNG_TEMP_DIR.$member['mb_id'].'.png';
-$errorCorrectionLevel = 'H';
-$matrixPointSize = 10;
+$errorCorrectionLevel = 'L';
+$matrixPointSize = 5;
 QRcode::png($url, $filename, $errorCorrectionLevel, $matrixPointSize, 2);
 ?>
-<div style="height:90vh;text-align:center">
+<div style="height:90vh;text-align:center" id="Contents">
 	<img src="<?php echo G5_THEME_URL ?>/images/head_myl.png" style="width:100%" width=100% alt="">
-    <img src="<?=$PNG_WEB_DIR.basename($filename)?>" alt="레퍼럴 qr코드">
-    <button class="btn-clipboard btn-copy" data-clipboard-text="<?=G5_URL?>/?refid=<?=$member[mb_id]?>" >
-        추천코드 복사
-    </button>
+		<div class="notice_box" style="">
+			초대QR코드
+		</div>
+		<img src="<?php echo G5_THEME_URL ?>/images/img_line.png" width="100%" />
+	<div style="padding:30px 0">
+		<div class="borderbox_bg" style="width:200px;margin:0 auto">
+			<div class="borderbox_wrap" >
+				<div class="borderbox_content borderbox_content_white">
+					<img src="<?=$PNG_WEB_DIR.basename($filename)?>" alt="레퍼럴 qr코드">
+				</div>
+			</div>
+		</div>
+		<button class="btn-clipboard btn_nob bg_blue" style="margin:30px 0" data-clipboard-text="<?=G5_URL?>/?refid=<?=$member[mb_id]?>" >
+			추천코드 복사
+		</button>
+	</div>
 </div>
 <script src="http://navi.one/theme/shining/extend/clipboard.min.js"></script>
 <script>
@@ -47,7 +59,7 @@ $(document).ready(function () {
 <style>
 .btn-copy {
     padding: 10px;
-    background: #ffe000;
+    background: #f4f4f4;
     box-shadow: 2px 2px 2px 2px #ddd;
     color: #000000;
     border-color: #ddd;

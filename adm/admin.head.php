@@ -109,7 +109,7 @@ function imageview(id, w, h)
     <h1><?php echo $config['cf_title'] ?></h1>
     <div id="hd_top">
         <button type="button" id="btn_gnb" class="btn_gnb_close <?php echo $adm_menu_cookie['btn_gnb'];?>">메뉴</button>
-       <div id="logo"><a href="<?php echo G5_ADMIN_URL ?>">NAVI<!--img src='<?=G5_ADMIN_URL?>/img/logo_top_dark.png'--></a></div>
+       <div id="logo"><a href="<?php echo G5_ADMIN_URL ?>">Nobless<!--img src='<?=G5_ADMIN_URL?>/img/logo_top_dark.png'--></a></div>
        
        <div id="topmenu">
        	<ul class="top_ul">
